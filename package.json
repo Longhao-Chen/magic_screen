@@ -1,0 +1,25 @@
+{
+  "name": "magic_screen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ical.js": "^1.4.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenlhlinux/magic_screen.git"
+  },
+  "author": "Chen Longhao",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/chenlhlinux/magic_screen/issues"
+  },
+  "homepage": "https://github.com/chenlhlinux/magic_screen#readme"
+}
