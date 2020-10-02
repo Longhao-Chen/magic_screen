@@ -60,3 +60,6 @@ buck-out/
 
 #config
 config.js
+
+#node
+package-lock.json

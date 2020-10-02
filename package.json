@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "ical.js": "^1.4.0",
+    "imap": "^0.8.19",
     "request": "^2.88.2"
   },
   "devDependencies": {},

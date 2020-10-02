@@ -8,15 +8,26 @@
 
 <head>
 	<title>Magic_Screen</title>
-	<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="{{fullUrl}}static/css/style.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" defer></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.5.0/js/bootstrap.min.js" defer></script>
-	<script src="static/js/index.js" defer></script>
+	<script src="{{fullUrl}}static/js/index.js" defer></script>
 </head>
 
-<body class="container-fluid center">
-
+<body>
+	<div style="margin-left: 10px;margin-top: 10px;margin-right: 10px;margin-bottom: 10px;">
+		<h3 id="date"></h3>
+		<h1 id="time"></h1>
+		<hr>
+		<h4 id="weather" onclick="updata_weather();"></h4>
+		<hr>
+		<h4 id="cal" onclick="update_cal();"></h4>
+		<hr>
+		<h4 id="mail" onclick="update_mail();"></h4>
+		<hr>
+		<div id="hitokoto" onclick="update_hitokoto();">「<shap id="hitokoto_text">:D 获取中...</shap>」</div>
+	</div>
 </body>
 
 </html>
