@@ -36,24 +36,28 @@ function Junk() {
 }
 function get_mail_num() {
 	return new Promise((resolve, reject) => {
-		imap.once('ready', async () => {
-			var num = 0;
-			try {
-				num += (await INBOX()).length;
-				//如果配置了检查垃圾邮件，则检查垃圾邮件
-				if (config.email_check_junk)
-					num += (await Junk()).length;
-				resolve(num);
-			} catch (e) {
-				reject(e);
-			}
-		});
+		try {
+			imap.once('ready', async () => {
+				var num = 0;
+				try {
+					num += (await INBOX()).length;
+					//如果配置了检查垃圾邮件，则检查垃圾邮件
+					if (config.email_check_junk)
+						num += (await Junk()).length;
+					resolve(num);
+				} catch (e) {
+					reject(e);
+				}
+			});
 
-		imap.once('error', function (err) {
-			reject(err);
-		});
+			imap.once('error', function (err) {
+				reject(err);
+			});
 
-		imap.connect();
+			imap.connect();
+		} catch (e) {
+			reject(e);
+		}
 	})
 }
 
