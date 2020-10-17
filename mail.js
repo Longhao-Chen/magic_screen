@@ -1,20 +1,11 @@
 const Imap = require("imap");
 const config = require("./config");
 
-var imap = new Imap({
-	user: config.email_user,
-	password: config.email_password,
-	host: config.email_imaphost,
-	port: config.email_port,
-	tls: true,
-	tlsOptions: { rejectUnauthorized: false } //禁用对证书有效性的检查
-});
-
 //收件箱
 function INBOX() {
 	return new Promise((resolve, reject) => {
 		imap.openBox('INBOX', true, (err, box) => {
-			if (err) throw err;
+			if (err) reject(err);
 			imap.search(['UNSEEN'], (err, results) => {
 				if (err) reject(err);
 				resolve(results);
@@ -26,7 +17,7 @@ function INBOX() {
 function Junk() {
 	return new Promise((resolve, reject) => {
 		imap.openBox('Junk', true, (err, box) => {
-			if (err) throw err;
+			if (err) reject(err);
 			imap.search(['UNSEEN'], (err, results) => {
 				if (err) reject(err);
 				resolve(results);
@@ -37,6 +28,15 @@ function Junk() {
 function get_mail_num() {
 	return new Promise((resolve, reject) => {
 		try {
+			imap = new Imap({
+				user: config.email_user,
+				password: config.email_password,
+				host: config.email_imaphost,
+				port: config.email_port,
+				tls: true,
+				tlsOptions: { rejectUnauthorized: false } //禁用对证书有效性的检查
+			});
+
 			imap.once('ready', async () => {
 				var num = 0;
 				try {
@@ -44,8 +44,10 @@ function get_mail_num() {
 					//如果配置了检查垃圾邮件，则检查垃圾邮件
 					if (config.email_check_junk)
 						num += (await Junk()).length;
+					imap.end();
 					resolve(num);
 				} catch (e) {
+					imap.end();
 					reject(e);
 				}
 			});
