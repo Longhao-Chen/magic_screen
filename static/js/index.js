@@ -62,7 +62,7 @@ function update_hitokoto() {
 function update_theme() {
 	var myDate = new Date();
 	//白天
-	if (myDate.getHours() >= 6 && myDate.getHours() <= 23) {
+	if (myDate.getHours() >= 6 && myDate.getHours() < 22) {
 		document.getElementsByTagName("body")[0].className = "container-fluid center bg-dark text-white";
 	} else {
 		document.getElementsByTagName("body")[0].className = "container-fluid center bg-dark text-muted";
