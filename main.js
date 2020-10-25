@@ -21,7 +21,7 @@ app.get('/cal', (req, res) => {
 				msg += cal_data[i];
 			res.send(msg);
 		}
-	}).catch((err) => { res.send("服务器出现错误") });
+	}).catch((err) => { res.send("服务器出现错误" + err) });
 });
 
 //weather
@@ -29,7 +29,7 @@ app.get('/weather', (req, res) => {
 	weather.getWeather().then((data) => {
 		var msg = data.description + "	" + data.temp + "&deg;C	云量:" + data.clouds + "%";
 		res.send(msg);
-	}).catch((err) => { res.send("服务器出现错误") });
+	}).catch((err) => { res.send("服务器出现错误" +err) });
 });
 //阴历
 app.get('/time', (req, res) => {
@@ -48,13 +48,13 @@ app.get('/mail', (req, res) => {
 			res.send("<p>没有未读邮件</p>");
 		else
 			res.send("<p class='text-success'>未读邮件：" + data + "</p>");
-	}).catch((err) => { res.send("服务器出现错误") });
+	}).catch((err) => { res.send("服务器出现错误" + err) });
 });
 //主页文件
 app.get('/', (req, res) => {
 	res.set('Content-Type', 'text/html');
 	var data = fs.readFileSync('index.html');
-	data = replace.html(data.toString(), req);
+	data = replace.html(data.toString(), req);	//为了支持webview
 	res.send(data);
 });
 

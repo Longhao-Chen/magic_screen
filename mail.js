@@ -26,37 +26,53 @@ function Junk() {
 	});
 }
 function get_mail_num() {
-	return new Promise((resolve, reject) => {
+	return new Promise(async (resolve, reject) => {
 		try {
-			imap = new Imap({
-				user: config.email_user,
-				password: config.email_password,
-				host: config.email_imaphost,
-				port: config.email_port,
-				tls: true,
-				tlsOptions: { rejectUnauthorized: false } //禁用对证书有效性的检查
-			});
+			if (typeof(imap) == "undefined") {
+				imap = new Imap({
+					user: config.email_user,
+					password: config.email_password,
+					host: config.email_imaphost,
+					port: config.email_port,
+					tls: true,
+					//debug: console.error,
+					tlsOptions: { rejectUnauthorized: false } //禁用对证书有效性的检查
+				});
 
-			imap.once('ready', async () => {
+				imap.on('ready', async () => {
+					var num = 0;
+					try {
+						num += (await INBOX()).length;
+						//如果配置了检查垃圾邮件，则检查垃圾邮件
+						if (config.email_check_junk)
+							num += (await Junk()).length;
+						resolve(num);
+					} catch (e) {
+						reject(e);
+					}
+				});
+
+				imap.on('error', function (err) {
+					reject(err);
+				});
+			}
+
+			//防止重复连接
+			if(imap.state != 'authenticated')
+				imap.connect();
+			else {
 				var num = 0;
 				try {
 					num += (await INBOX()).length;
 					//如果配置了检查垃圾邮件，则检查垃圾邮件
 					if (config.email_check_junk)
 						num += (await Junk()).length;
-					imap.end();
 					resolve(num);
 				} catch (e) {
-					imap.end();
 					reject(e);
 				}
-			});
+			}
 
-			imap.once('error', function (err) {
-				reject(err);
-			});
-
-			imap.connect();
 		} catch (e) {
 			reject(e);
 		}
