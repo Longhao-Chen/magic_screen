@@ -1,0 +1,19 @@
+<div id="hitokoto" onclick="update_hitokoto();">「<shap id="hitokoto_text">:D 获取中...</shap>」</div>
+<script>
+	//更新一言
+	function update_hitokoto() {
+		document.getElementById('hitokoto_text').innerText = "更新中...";
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onload = function () {
+			var data = JSON.parse(xmlhttp.responseText);
+			document.getElementById('hitokoto_text').innerText = data.hitokoto;
+		}
+		xmlhttp.onerror = function () {
+			document.getElementById("hitokoto_text").innerHTML = "客户端出错";
+		}
+		xmlhttp.open("GET", "https://v1.hitokoto.cn/?c=d&c=i&c=k&c=h", true);
+		xmlhttp.send();
+	}
+	setInterval(update_hitokoto, 610000);
+	update_hitokoto();
+</script>

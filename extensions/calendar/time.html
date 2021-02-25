@@ -1,0 +1,23 @@
+<h4 id="date"></h4>
+<h1 id="time"></h1>
+<script>
+	//更新界面上的时间
+	function update_time() {
+		var myDate = new Date();
+		document.getElementById("time").innerHTML = myDate.toLocaleTimeString();
+		//每5秒更新一次，降低服务器压力
+		if (myDate.getSeconds() % 5 == 0) {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onload = function () {
+				document.getElementById("date").innerHTML = xmlhttp.responseText;
+			}
+			xmlhttp.onerror = function () {
+				document.getElementById("date").innerHTML = "客户端出错";
+			}
+			xmlhttp.open("GET", "/calendar", true);
+			xmlhttp.send();
+		}
+	}
+	setInterval(update_time, 500);
+	update_time();
+</script>

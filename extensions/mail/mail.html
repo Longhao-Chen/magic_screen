@@ -1,0 +1,17 @@
+<h4 id="mail" onclick="update_mail();"></h4>
+<script>
+	function update_mail() {
+		document.getElementById("mail").innerHTML = "更新中...";
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onload = function () {
+			document.getElementById("mail").innerHTML = xmlhttp.responseText;
+		}
+		xmlhttp.onerror = function () {
+			document.getElementById("mail").innerHTML = "客户端出错";
+		}
+		xmlhttp.open("GET", "/mail", true);
+		xmlhttp.send();
+	}
+	update_mail();
+	setInterval(update_mail, 620000);
+</script>

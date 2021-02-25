@@ -1,0 +1,18 @@
+<h4 id="cal" onclick="update_cal();"></h4>
+<script>
+	//更新日程
+	function update_cal() {
+		document.getElementById("cal").innerHTML = "更新中...";
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onload = function () {
+			document.getElementById("cal").innerHTML = xmlhttp.responseText;
+		}
+		xmlhttp.onerror = function () {
+			document.getElementById("cal").innerHTML = "客户端出错";
+		}
+		xmlhttp.open("GET", "/cal", true);
+		xmlhttp.send();
+	}
+	setInterval(update_cal, 600000);
+	update_cal();
+</script>

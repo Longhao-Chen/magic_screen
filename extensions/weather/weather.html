@@ -1,0 +1,18 @@
+<h4 id="weather" onclick="updata_weather();"></h4>
+<script>
+	//更新天气
+	function updata_weather() {
+		document.getElementById("weather").innerHTML = "更新中...";
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onload = function () {
+			document.getElementById("weather").innerHTML = xmlhttp.responseText;
+		}
+		xmlhttp.onerror = function () {
+			document.getElementById("weather").innerHTML = "客户端出错";
+		}
+		xmlhttp.open("GET", "/weather", true);
+		xmlhttp.send();
+	}
+	setInterval(updata_weather, 600000);
+	updata_weather();
+</script>

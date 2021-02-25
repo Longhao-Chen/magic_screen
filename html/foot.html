@@ -1,0 +1,17 @@
+</div>
+</body>
+<script>
+function update_theme() {
+	var myDate = new Date();
+	//白天
+	if (myDate.getHours() >= 6 && myDate.getHours() < 22) {
+		document.getElementsByTagName("body")[0].className = "container-fluid center bg-dark text-white";
+	} else {
+		document.getElementsByTagName("body")[0].className = "container-fluid center bg-dark text-muted";
+	}
+}
+
+setInterval(update_theme, 60000);
+update_theme();
+</script>
+</html>
