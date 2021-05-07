@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chenlhlinux/magic_screen.git"
+    "url": "git+https://github.com/Longhao-Chen/magic_screen.git"
   },
   "author": "Chen Longhao",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/chenlhlinux/magic_screen/issues"
+    "url": "https://github.com/Longhao-Chen/magic_screen/issues"
   },
-  "homepage": "https://github.com/chenlhlinux/magic_screen#readme"
+  "homepage": "https://github.com/Longhao-Chen/magic_screen#readme"
 }
